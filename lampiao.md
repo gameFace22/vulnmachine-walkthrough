@@ -84,3 +84,9 @@ We can ssh as the root user with the modified password.
 <p align="center">
   <img src="https://github.com/gameFace22/vulnhub-walkthrough/blob/master/images/root-lamp.png">
 </p>
+
+## Defense 
+
+1) Firewall/IDS/IPS rule to detect signature of druppalgeddon and block it. 
+2) Disable access to sensitive files like robots.txt, CHANGELOG.txt and so on. 
+3) Limit the ACL for uploading, executing files in the OS level or Server level. 
