@@ -87,11 +87,11 @@ We can ssh as the root user with the modified password.
 
 ## Defense 
 
-1) Firewall/IDS/IPS rule to detect signature of druppalgeddon and block it. 
-2) Disable access to sensitive files like CHANGELOG.txt.
-3) Limit the ACL for uploading, executing files in the OS level or Server level. 
+[1] Firewall/IDS/IPS rule to detect signature of druppalgeddon and block it. <br>
+[2] Disable access to sensitive files like CHANGELOG.txt. <br>
+[3] Limit the ACL for uploading, executing files in the OS level or Server level. 
 
 ## References 
 
-1) https://netsec.ws/?p=337
-2) https://highon.coffee/blog/reverse-shell-cheat-sheet/#python-reverse-shell
+[1] https://netsec.ws/?p=337 <br>
+[2] https://highon.coffee/blog/reverse-shell-cheat-sheet/#python-reverse-shell
