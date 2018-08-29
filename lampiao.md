@@ -31,7 +31,24 @@ Drupal 7.54, 2017-02-01
   https://www.drupal.org/node/2826480).
 ```
 
+On accessing the Drupal site, we can see that the there are two articles written by two different users ```tiago``` and ```Eder``` which might be helpful if we bruteforce SSH service. 
+
+<p align="center">
+  <img src="https://github.com/gameFace22/vulnhub-walkthrough/blob/master/images/username-lamp.png">
+</p>
+
+Recently there was an [exploit](https://www.exploit-db.com/exploits/45233/) released for OpenSSH 2.3 < 7.7 which checks if the username is valid or not. We can use that to verify if these two are valid users. 
+
+```
+$  python 45233.py --port 22 --username Eder 192.168.0.107
+Eder is not a valid user!
+› python 45233.py --port 22 --username tiago 192.168.0.107
+tiago is a valid user!
+```
+
 ## Exploitation
+
+### Using Drupal 
 
 Now that we have figured the exact version, let's check if there are any exploits available. 
 
@@ -55,6 +72,23 @@ To enable tty on a jailed shell, we can run, ```python -c 'import pty; pty.spawn
 <p align="center">
   <img src="https://github.com/gameFace22/vulnhub-walkthrough/blob/master/images/tty-no-tty.png">
 </p>
+
+### Using SSH
+
+Since we know that ```tiago``` is a valid user name for SSH. We can run a bruteforce on the SSH server to check if it uses a weak password. 
+
+Running [rockyou wordlist](https://github.com/danielmiessler/SecLists/blob/master/Passwords/Leaked-Databases/rockyou-75.txt) didn't find any valid passwords. Let us try one more time by generating wordlists using the article written by tiago. 
+
+```
+$ ./cewl.rb -d 2 -w lampioa.txt http://192.168.0.107:1898/\?q\=node/1
+CeWL 5.4.3 (Arkanoid) Robin Wood (robin@digi.ninja) (https://digi.ninja/)
+```
+This generates a wordlist of 835 unique passwords. On bruteforcing, we get a valid password Virgulino for the user tiago.
+
+<p align="center">
+  <img src="https://github.com/gameFace22/vulnhub-walkthrough/blob/master/images/success-brute.png">
+</p>
+
 
 ## Privilege Escalation
 
