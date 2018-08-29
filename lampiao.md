@@ -123,7 +123,7 @@ We can ssh as the root user with the modified password.
 
 [1] Firewall/IDS/IPS rule to detect signature of druppalgeddon and block it. <br>
 [2] Disable access to sensitive files like CHANGELOG.txt. <br>
-[3] Limit the ACL for uploading, executing files in the OS level or Server level. 
+[3] Limit the ACL for uploading, executing files in the OS level or Server level. <br>
 [4] Implement services like fail2ban to prevent SSH bruteforce. 
 
 ## References 
