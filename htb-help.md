@@ -49,7 +49,9 @@ Now that we have figured out how the exploit works, we can upload a PHP reverse 
 
 When I tried to upload the shell using the 'Submit Ticket' functionality, the server was throwing an error saying file type is not allowed. 
 
-<include image>
+<p align="center">
+  <img src="https://github.com/gameFace22/vulnhub-walkthrough/blob/master/images/file-error.png">
+</p>
 
 After this, I was confused because the PHP files are not getting uploaded. Maybe the box creator removed the PHP from allowed extensions. 
 From this point, I had tried multiple bypasses to exploit file upload vulnerability. Yet, I was getting the same error. 
@@ -97,7 +99,9 @@ http://10.10.10.121/support/uploads/tickets/648c7992e32db31087ed54a48e9543b6.php
 
 Exploit worked like charm and we got a shell as user `help`
 
-<add image> 
+<p align="center">
+  <img src="https://github.com/gameFace22/vulnhub-walkthrough/blob/master/images/help-basic-shell.png">
+</p>
 
 ## Privilege Escalation
 
@@ -160,6 +164,6 @@ root
 
 ## Defense 
 
-[1] Files should be validated before it getting uploaded to the server.
+[1] Files should be validated before it getting uploaded to the server. <br>
 [2] File names should be completely randomized. 
 
